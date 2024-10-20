@@ -1,0 +1,100 @@
+from django.core.management.base import BaseCommand
+from property_app.models import Property, Unit, Tenant, Lease
+from datetime import date
+
+class Command(BaseCommand):
+    help = 'Populate the database with sample data'
+
+    def handle(self, *args, **kwargs):
+        # properties
+        property1 = Property.objects.create(name='Green Meadows', address='123 Elm St', property_type='Apartment', description='A nice apartment complex.', number_of_units=10)
+        property2 = Property.objects.create(name='Sunset Plaza', address='456 Oak St', property_type='Commercial', description='A shopping plaza.', number_of_units=5)
+        property3 = Property.objects.create(name='Kigali Heights', address='KG 7 Ave, Nyarutarama', property_type='Commercial', description='Premium office space with a modern shopping center.', number_of_units=15)
+        property4 = Property.objects.create(name='Vision City Apartments', address='Gacuriro Estate, Kigali', property_type='Apartment', description='High-end apartments in a secure gated community.', number_of_units=50)
+        property5 = Property.objects.create(name='Nyamirambo Residences', address='KN 75 St, Nyamirambo, Kigali', property_type='Apartment', description='Affordable housing with great views.', number_of_units=30)
+        property6 = Property.objects.create(name='Remera Heights', address='KG 11 Ave, Remera', property_type='Apartment', description='Modern apartments near Amahoro Stadium.', number_of_units=25)
+        property7 = Property.objects.create(name='Kacyiru Business Park', address='KG 5 Ave, Kacyiru', property_type='Commercial', description='A popular business park with office spaces.', number_of_units=20)
+        property8 = Property.objects.create(name='Muhima Market Plaza', address='KN 3 Ave, Muhima', property_type='Commercial', description='A bustling market space with shops.', number_of_units=40)
+        property9 = Property.objects.create(name='Rugando Villas', address='KN 33 St, Rugando, Kigali', property_type='Residential', description='Luxury villas with swimming pools.', number_of_units=8)
+        property10 = Property.objects.create(name='Bugesera Gardens', address='Bugesera', property_type='Residential', description='A serene residential community near the airport.', number_of_units=35)
+        property11 = Property.objects.create(name='Nyarugenge Complex', address='KN 4 Ave, Nyarugenge', property_type='Commercial', description='A large commercial complex in central Kigali.', number_of_units=50)
+        property12 = Property.objects.create(name='Gisozi Hills Apartments', address='KG 12 Ave, Gisozi', property_type='Apartment', description='Modern apartments with a scenic view of Kigali.', number_of_units=45)
+        property13 = Property.objects.create(name='Kibagabaga Suites', address='KG 15 Ave, Kibagabaga', property_type='Apartment', description='Luxury suites in a quiet neighborhood.', number_of_units=20)
+        property14 = Property.objects.create(name='Kanombe Estate', address='KN 7 Rd, Kanombe', property_type='Residential', description='Spacious homes near Kigali International Airport.', number_of_units=60)
+        property15 = Property.objects.create(name='Kimironko Towers', address='KG 18 Ave, Kimironko', property_type='Commercial', description='A commercial tower in the busy Kimironko area.', number_of_units=10)
+        property16 = Property.objects.create(name='Masaka Apartments', address='KN 29 St, Masaka', property_type='Apartment', description='Affordable apartments near the highway.', number_of_units=15)
+        property17 = Property.objects.create(name='Nyamata Oasis', address='Nyamata', property_type='Residential', description='A modern residential community in Bugesera District.', number_of_units=25)
+        property18 = Property.objects.create(name='Rwamagana City Center', address='RN 2, Rwamagana', property_type='Commercial', description='A bustling commercial center in Rwamagana.', number_of_units=35)
+        property19 = Property.objects.create(name='Kibungo Business Hub', address='RN 3, Kibungo', property_type='Commercial', description='A modern business hub with multiple offices and shops.', number_of_units=30)
+        property20 = Property.objects.create(name='Huye Residences', address='KN 40 Ave, Huye', property_type='Residential', description='A peaceful residential community in the Southern Province.', number_of_units=40)
+
+        
+        # units
+        unit1 = Unit.objects.create(property=property1, unit_number='1A', bedrooms=2, bathrooms=1, rent=1200, is_available=True)
+        unit2 = Unit.objects.create(property=property2, unit_number='B2', bedrooms=1, bathrooms=1, rent=2000, is_available=False)
+        unit3 = Unit.objects.create(property=property3, unit_number='2B', bedrooms=3, bathrooms=2, rent=3000, is_available=True)
+        unit4 = Unit.objects.create(property=property4, unit_number='3A', bedrooms=4, bathrooms=3, rent=4000, is_available=True)
+        unit5 = Unit.objects.create(property=property5, unit_number='4C', bedrooms=2, bathrooms=1, rent=900, is_available=False)
+        unit6 = Unit.objects.create(property=property6, unit_number='5D', bedrooms=3, bathrooms=2, rent=1500, is_available=True)
+        unit7 = Unit.objects.create(property=property7, unit_number='6E', bedrooms=1, bathrooms=1, rent=2500, is_available=True)
+        unit8 = Unit.objects.create(property=property8, unit_number='7F', bedrooms=2, bathrooms=1, rent=800, is_available=False)
+        unit9 = Unit.objects.create(property=property9, unit_number='8G', bedrooms=4, bathrooms=3, rent=4500, is_available=True)
+        unit10 = Unit.objects.create(property=property10, unit_number='9H', bedrooms=3, bathrooms=2, rent=2000, is_available=True)
+        unit11 = Unit.objects.create(property=property11, unit_number='10I', bedrooms=2, bathrooms=1, rent=3500, is_available=False)
+        unit12 = Unit.objects.create(property=property12, unit_number='11J', bedrooms=1, bathrooms=1, rent=1500, is_available=True)
+        unit13 = Unit.objects.create(property=property13, unit_number='12K', bedrooms=3, bathrooms=2, rent=3800, is_available=False)
+        unit14 = Unit.objects.create(property=property14, unit_number='13L', bedrooms=5, bathrooms=4, rent=6000, is_available=True)
+        unit15 = Unit.objects.create(property=property15, unit_number='14M', bedrooms=2, bathrooms=1, rent=1200, is_available=True)
+        unit16 = Unit.objects.create(property=property16, unit_number='15N', bedrooms=3, bathrooms=2, rent=1100, is_available=True)
+        unit17 = Unit.objects.create(property=property17, unit_number='16O', bedrooms=2, bathrooms=1, rent=2500, is_available=False)
+        unit18 = Unit.objects.create(property=property18, unit_number='17P', bedrooms=1, bathrooms=1, rent=900, is_available=True)
+        unit19 = Unit.objects.create(property=property19, unit_number='18Q', bedrooms=4, bathrooms=3, rent=3000, is_available=True)
+        unit20 = Unit.objects.create(property=property20, unit_number='19R', bedrooms=3, bathrooms=2, rent=1700, is_available=True)
+
+        
+        # tenants
+        tenant1 = Tenant.objects.create(name='John Doe', email='johndoe@example.com', phone_number='555-1234')
+        tenant2 = Tenant.objects.create(name='Jane Smith', email='janesmith@example.com', phone_number='555-5678')
+        tenant3 = Tenant.objects.create(name='Pierre Karekezi', email='pierre.karekezi@example.com', phone_number='0788-123456')
+        tenant4 = Tenant.objects.create(name='Aline Uwase', email='aline.uwase@example.com', phone_number='0788-654321')
+        tenant5 = Tenant.objects.create(name='Claude Murekezi', email='claude.murekezi@example.com', phone_number='0788-987654')
+        tenant6 = Tenant.objects.create(name='Grace Nyiranshuti', email='grace.nyiranshuti@example.com', phone_number='0788-321987')
+        tenant7 = Tenant.objects.create(name='Eric Nshimiyimana', email='eric.nshimiyimana@example.com', phone_number='0788-765432')
+        tenant8 = Tenant.objects.create(name='Jeanne Uwamariya', email='jeanne.uwamariya@example.com', phone_number='0788-246810')
+        tenant9 = Tenant.objects.create(name='Patricia Niyonsaba', email='patricia.niyonsaba@example.com', phone_number='0788-135791')
+        tenant10 = Tenant.objects.create(name='David Rugira', email='david.rugira@example.com', phone_number='0788-112233')
+        tenant11 = Tenant.objects.create(name='Isabelle Uwimbabazi', email='isabelle.uwimbabazi@example.com', phone_number='0788-667788')
+        tenant12 = Tenant.objects.create(name='Jean Claude Niyonzima', email='jean.claude@example.com', phone_number='0788-334455')
+        tenant13 = Tenant.objects.create(name='Sandra Mukandayisenga', email='sandra.mukandayisenga@example.com', phone_number='0788-990011')
+        tenant14 = Tenant.objects.create(name='Oliver Karangwa', email='oliver.karangwa@example.com', phone_number='0788-556677')
+        tenant15 = Tenant.objects.create(name='Maria Umutoni', email='maria.umutoni@example.com', phone_number='0788-443322')
+        tenant16 = Tenant.objects.create(name='Thierry Mugisha', email='thierry.mugisha@example.com', phone_number='0788-778899')
+        tenant17 = Tenant.objects.create(name='Beatrice Mukeshimana', email='beatrice.mukeshimana@example.com', phone_number='0788-223344')
+        tenant18 = Tenant.objects.create(name='Emmanuel Nkurunziza', email='emmanuel.nkurunziza@example.com', phone_number='0788-334466')
+        tenant19 = Tenant.objects.create(name='Angelique Kamanzi', email='angelique.kamanzi@example.com', phone_number='0788-998877')
+        tenant20 = Tenant.objects.create(name='Samuel Uwayezu', email='samuel.uwayezu@example.com', phone_number='0788-665544')
+
+        # Leases
+        Lease.objects.create(tenant=tenant1, unit=unit1, start_date=date(2024, 1, 1), end_date=date(2024, 12, 31), rent_amount=1200)
+        Lease.objects.create(tenant=tenant2, unit=unit2, start_date=date(2024, 6, 1), end_date=date(2025, 5, 31), rent_amount=2000)
+        Lease.objects.create(tenant=tenant3, unit=unit3, start_date=date(2024, 2, 1), end_date=date(2025, 1, 31), rent_amount=3000)
+        Lease.objects.create(tenant=tenant4, unit=unit4, start_date=date(2024, 3, 1), end_date=date(2024, 12, 31), rent_amount=4000)
+        Lease.objects.create(tenant=tenant5, unit=unit5, start_date=date(2024, 4, 1), end_date=date(2025, 3, 31), rent_amount=900)
+        Lease.objects.create(tenant=tenant6, unit=unit6, start_date=date(2024, 5, 1), end_date=date(2025, 4, 30), rent_amount=1500)
+        Lease.objects.create(tenant=tenant7, unit=unit7, start_date=date(2024, 6, 1), end_date=date(2025, 5, 31), rent_amount=2500)
+        Lease.objects.create(tenant=tenant8, unit=unit8, start_date=date(2024, 7, 1), end_date=date(2025, 6, 30), rent_amount=800)
+        Lease.objects.create(tenant=tenant9, unit=unit9, start_date=date(2024, 8, 1), end_date=date(2025, 7, 31), rent_amount=4500)
+        Lease.objects.create(tenant=tenant10, unit=unit10, start_date=date(2024, 9, 1), end_date=date(2025, 8, 31), rent_amount=2000)
+        Lease.objects.create(tenant=tenant11, unit=unit11, start_date=date(2024, 10, 1), end_date=date(2025, 9, 30), rent_amount=3500)
+        Lease.objects.create(tenant=tenant12, unit=unit12, start_date=date(2024, 11, 1), end_date=date(2025, 10, 31), rent_amount=1500)
+        Lease.objects.create(tenant=tenant13, unit=unit13, start_date=date(2024, 12, 1), end_date=date(2025, 11, 30), rent_amount=3800)
+        Lease.objects.create(tenant=tenant14, unit=unit14, start_date=date(2025, 1, 1), end_date=date(2025, 12, 31), rent_amount=6000)
+        Lease.objects.create(tenant=tenant15, unit=unit15, start_date=date(2025, 2, 1), end_date=date(2025, 1, 31), rent_amount=1200)
+        Lease.objects.create(tenant=tenant16, unit=unit16, start_date=date(2025, 3, 1), end_date=date(2025, 2, 28), rent_amount=1100)
+        Lease.objects.create(tenant=tenant17, unit=unit17, start_date=date(2025, 4, 1), end_date=date(2026, 3, 31), rent_amount=2500)
+        Lease.objects.create(tenant=tenant18, unit=unit18, start_date=date(2025, 5, 1), end_date=date(2026, 4, 30), rent_amount=900)
+        Lease.objects.create(tenant=tenant19, unit=unit19, start_date=date(2025, 6, 1), end_date=date(2026, 5, 31), rent_amount=3000)
+        Lease.objects.create(tenant=tenant20, unit=unit20, start_date=date(2025, 7, 1), end_date=date(2026, 6, 30), rent_amount=1700)
+
+
+        self.stdout.write(self.style.SUCCESS('Successfully populated the database'))
