@@ -1,0 +1,161 @@
+### Obtain JWT Token
+POST http://127.0.0.1:8000/api/auth/token/
+Content-Type: application/json
+
+{
+  "username": "Philbert",
+  "password": "Philbert"
+}
+
+### Refresh JWT Token
+POST http://127.0.0.1:8000/api/auth/token/refresh/
+Content-Type: application/json
+
+{
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMjUyMzI5MiwiaWF0IjoxNzMyNDM2ODkyLCJqdGkiOiI4ZTgzMzFmYzM5Y2U0Mjk5OGE1NmIwZjMxYmQ0NDdkNiIsInVzZXJfaWQiOjJ9.4BIaS6DQUKDrZ_OwRY3CkQ6ymMA9I96C8_QyJDubRgw"
+}
+
+### Properties Endpoints
+
+### Get All Properties (Requires JWT Token)
+GET http://127.0.0.1:8000/api/properties/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3MzAzLCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6Ijg0NGU0ZTQ3NmJhMzQwODViNTkxNTQzNzJhODRlZTg0IiwidXNlcl9pZCI6Mn0.IS4ed1b6IJUNhlhNwT7Cc4f5NGnMj0EQ3myRUqkReQM
+
+### Create a New Property (Requires JWT Token)
+POST http://127.0.0.1:8000/api/properties/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3ODM4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjE2ZWQwZTI2NTE4MTRiY2Y5ZGZjNWY5ZDM3ZmYwMTdiIiwidXNlcl9pZCI6Mn0.hGfbx1pym7bj4AvCuAZhGJTJFt8OPPHv6IZVSEXOUuM
+
+{
+  "name": "Sunset Apartments",
+  "address": "123 Sunshine St.",
+  "property_type": "Apartment",
+  "description": "A beautiful place to live",
+  "number_of_units": 20
+}
+
+### Update a Property (Requires JWT Token)
+PUT http://127.0.0.1:8000/api/properties/1/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3NzA4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjhhMmNlM2Q2MWEzNjQ5ZjlhM2I4NzExODRlZDYxMDc0IiwidXNlcl9pZCI6Mn0.H_ssGe6ln0tFCtVRdL-QjB-wG5YbPPjKITrgCTq3tsQ
+
+{
+  "name": "Sunrise Apartments",
+  "address": "123 Sunshine St.",
+  "property_type": "Apartment",
+  "description": "Updated description",
+  "number_of_units": 20
+}
+
+### Delete a Property (Requires JWT Token)
+DELETE http://127.0.0.1:8000/api/properties/1/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3ODM4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjE2ZWQwZTI2NTE4MTRiY2Y5ZGZjNWY5ZDM3ZmYwMTdiIiwidXNlcl9pZCI6Mn0.hGfbx1pym7bj4AvCuAZhGJTJFt8OPPHv6IZVSEXOUuM
+
+
+### Units Endpoints
+
+### Get All Units (Requires JWT Token)
+GET http://127.0.0.1:8000/api/units/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3ODM4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjE2ZWQwZTI2NTE4MTRiY2Y5ZGZjNWY5ZDM3ZmYwMTdiIiwidXNlcl9pZCI6Mn0.hGfbx1pym7bj4AvCuAZhGJTJFt8OPPHv6IZVSEXOUuM
+
+### Create a New Unit (Requires JWT Token)
+POST http://127.0.0.1:8000/api/units/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3ODM4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjE2ZWQwZTI2NTE4MTRiY2Y5ZGZjNWY5ZDM3ZmYwMTdiIiwidXNlcl9pZCI6Mn0.hGfbx1pym7bj4AvCuAZhGJTJFt8OPPHv6IZVSEXOUuM
+
+{
+  "property": 24,
+  "unit_number": "101",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "rent": 1200.00,
+  "is_available": true
+}
+
+### Update a Unit (Requires JWT Token)
+PUT http://127.0.0.1:8000/api/units/21/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3ODM4LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjE2ZWQwZTI2NTE4MTRiY2Y5ZGZjNWY5ZDM3ZmYwMTdiIiwidXNlcl9pZCI6Mn0.hGfbx1pym7bj4AvCuAZhGJTJFt8OPPHv6IZVSEXOUuM
+
+{
+  "property": 24,
+  "unit_number": "101",
+  "bedrooms": 2,
+  "bathrooms": 1,
+  "rent": 1300.00,
+  "is_available": false
+}
+
+### Delete a Unit (Requires JWT Token)
+DELETE http://127.0.0.1:8000/api/units/1/
+Authorization: Bearer your_access_token_here
+
+
+### Tenants Endpoints
+
+### Get All Tenants (Requires JWT Token)
+GET http://127.0.0.1:8000/api/tenants/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM4MTQ1LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjVjZjkxNzI1NzhjNDRjYmZhNWY1OTZmOTM0MWUwNDg5IiwidXNlcl9pZCI6Mn0.88Lhe5tiRaF-GK7jJypHwj5IOXTA3gsusllVTXSZVMY
+
+### Create a New Tenant (Requires JWT Token)
+POST http://127.0.0.1:8000/api/tenants/
+Content-Type: application/json
+Authorization: Bearer your_access_token_here
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone_number": "123-456-7890"
+}
+
+### Update a Tenant (Requires JWT Token)
+PUT http://127.0.0.1:8000/api/tenants/1/
+Content-Type: application/json
+Authorization: Bearer your_access_token_here
+
+{
+  "name": "Jane Doe",
+  "email": "janedoe@example.com",
+  "phone_number": "123-456-7890"
+}
+
+### Delete a Tenant (Requires JWT Token)
+DELETE http://127.0.0.1:8000/api/tenants/1/
+Authorization: Bearer your_access_token_here
+
+
+### Leases Endpoints
+
+### Get All Leases (Requires JWT Token)
+GET http://127.0.0.1:8000/api/leases/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM4MTQ1LCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6IjVjZjkxNzI1NzhjNDRjYmZhNWY1OTZmOTM0MWUwNDg5IiwidXNlcl9pZCI6Mn0.88Lhe5tiRaF-GK7jJypHwj5IOXTA3gsusllVTXSZVMY
+
+### Create a New Lease (Requires JWT Token)
+POST http://127.0.0.1:8000/api/leases/
+Content-Type: application/json
+Authorization: Bearer your_access_token_here
+
+{
+  "tenant": 1,
+  "unit": 1,
+  "start_date": "2024-11-01",
+  "end_date": "2025-11-01",
+  "rent_amount": 1200.00
+}
+
+### Update a Lease (Requires JWT Token)
+PUT http://127.0.0.1:8000/api/leases/1/
+Content-Type: application/json
+Authorization: Bearer your_access_token_here
+
+{
+  "tenant": 1,
+  "unit": 1,
+  "start_date": "2024-11-01",
+  "end_date": "2025-11-01",
+  "rent_amount": 1300.00
+}
+
+### Delete a Lease (Requires JWT Token)
+DELETE http://127.0.0.1:8000/api/leases/1/
+Authorization: Bearer your_access_token_here
