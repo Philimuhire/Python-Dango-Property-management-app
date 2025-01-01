@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ property.name }}</h1>
+  <p><strong>Address:</strong> {{ property.address }}</p>
+  <p><strong>Type:</strong> {{ property.property_type }}</p>
+  <p><strong>Description:</strong> {{ property.description }}</p>
+  <p><strong>Number of Units:</strong> {{ property.number_of_units }}</p>
+  
+  <h2>Units</h2>
+  <ul>
+    {% for unit in property.units.all %}
+      <li>
+        Unit {{ unit.unit_number }} - {{ unit.bedrooms }} Bed / {{ unit.bathrooms }} Bath - ${{ unit.rent }}
+        {% if unit.is_available %}
+          <span style="color: green;">Available</span>
+        {% else %}
+          <span style="color: red;">Occupied</span>
+        {% endif %}
+      </li>
+    {% empty %}
+      <li>No units available.</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Photo Gallery</h2>
+  <div class="photo-gallery">
+    {% for image in property.images.all %}
+      <img src="{{ image.image.url }}" alt="Image for {{ property.name }}" style="width:200px; height:auto; margin:10px;">
+    {% empty %}
+      <p>No images available.</p>
+    {% endfor %}
+  </div>
+
+  {% if user.is_authenticated and user.profile.role == 'landlord' %}
+    <h3>Upload New Image</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ image_form.as_p }}
+      <button type="submit">Upload</button>
+    </form>
+  {% endif %}
+  
+{% endblock %}

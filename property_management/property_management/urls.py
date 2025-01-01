@@ -16,10 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.views.generic import RedirectView
+from property_app.views import register
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('property_app.urls')), 
-    path('', RedirectView.as_view(url='/api/', permanent=False)),
-]
+    path('api/', include('property_app.urls')),
+    path('accounts/register/', register, name='register'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', include('property_app.urls_frontend')),  # Prioritize frontend patterns
+    path('', RedirectView.as_view(url='/accounts/login/', permanent=False)),  # Redirect as a fallback
+    path('accounts/logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

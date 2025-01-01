@@ -1,0 +1,48 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+nav a {
+    color: #fff;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.container {
+    padding: 20px;
+}
+
+.property-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.property-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    width: calc(33% - 40px);
+    box-sizing: border-box;
+}
+
+.property-item h2 {
+    margin-top: 0;
+}
+
+.search-form {
+    margin-bottom: 20px;
+}
+
+.search-form input, .search-form select {
+    margin-right: 10px;
+    padding: 5px;
+}
+

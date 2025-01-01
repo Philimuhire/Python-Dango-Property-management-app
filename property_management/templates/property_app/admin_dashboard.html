@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Admin Dashboard</h1>
+  <div class="metrics">
+    <div>
+      <h3>Total Properties</h3>
+      <p>{{ total_properties }}</p>
+    </div>
+    <div>
+      <h3>Total Units</h3>
+      <p>{{ total_units }}</p>
+    </div>
+    <div>
+      <h3>Total Tenants</h3>
+      <p>{{ total_tenants }}</p>
+    </div>
+    <div>
+      <h3>Total Leases</h3>
+      <p>{{ total_leases }}</p>
+    </div>
+    <div>
+      <h3>Occupancy Rate</h3>
+      <p>{{ occupancy_rate }}%</p>
+    </div>
+    <div>
+      <h3>Total Revenue</h3>
+      <p>${{ total_revenue }}</p>
+    </div>
+  </div>
+  <!-- Add visualizations as needed -->
+{% endblock %}

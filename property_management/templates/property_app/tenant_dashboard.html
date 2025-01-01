@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tenant Dashboard</h1>
+  <h2>Your Leases</h2>
+  <ul>
+    {% for lease in leases %}
+      <li>
+        <strong>Property:</strong> {{ lease.unit.property.name }}<br>
+        <strong>Unit:</strong> {{ lease.unit.unit_number }}<br>
+        <strong>Start Date:</strong> {{ lease.start_date }}<br>
+        <strong>End Date:</strong> {{ lease.end_date }}<br>
+        <strong>Rent:</strong> ${{ lease.rent_amount }}
+      </li>
+    {% empty %}
+      <li>You have no active leases.</li>
+    {% endfor %}
+  </ul>
+  <!-- Add maintenance requests and communication features -->
+{% endblock %}

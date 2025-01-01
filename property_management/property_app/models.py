@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Property(models.Model):
@@ -44,4 +45,24 @@ class Lease(models.Model):
 
     def __str__(self):
         return f'{self.tenant.name} - Lease for {self.unit}'
+
+class Profile(models.Model):
+    USER_ROLES = [
+        ('admin', 'Admin'),
+        ('landlord', 'Landlord'),
+        ('tenant', 'Tenant'),
+    ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=10, choices=USER_ROLES)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.role}'
+    
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='property_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Image for {self.property.name}'
 

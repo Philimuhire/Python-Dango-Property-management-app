@@ -19,7 +19,7 @@ Content-Type: application/json
 
 ### Get All Properties (Requires JWT Token)
 GET http://127.0.0.1:8000/api/properties/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMyNDM3MzAzLCJpYXQiOjE3MzI0MzY4OTIsImp0aSI6Ijg0NGU0ZTQ3NmJhMzQwODViNTkxNTQzNzJhODRlZTg0IiwidXNlcl9pZCI6Mn0.IS4ed1b6IJUNhlhNwT7Cc4f5NGnMj0EQ3myRUqkReQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0ODg2OTgxLCJpYXQiOjE3MzQ4ODY2ODEsImp0aSI6IjMwYmJiZmJlN2YxOTRjY2NhZDc3NzZhNDI4OTE3ZDI3IiwidXNlcl9pZCI6Mn0.7U790g-8v9SvBLmXo4wGnDz5Njbo3SOQVlVmfhbLyY4
 
 ### Create a New Property (Requires JWT Token)
 POST http://127.0.0.1:8000/api/properties/
