@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>My Maintenance Requests</h1>
+  <ul>
+    {% for request in requests %}
+      <li>
+        <strong>Description:</strong> {{ request.description }}<br>
+        <strong>Status:</strong> {{ request.status }}<br>
+        <strong>Submitted On:</strong> {{ request.created_at }}
+      </li>
+    {% empty %}
+      <li>You have not submitted any maintenance requests.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

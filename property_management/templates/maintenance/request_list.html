@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Maintenance Requests</h2>
+<table>
+    <tr>
+        <th>Property</th>
+        <th>Description</th>
+        <th>Urgency</th>
+        <th>Status</th>
+        {% if user.is_staff %}<th>Actions</th>{% endif %}
+    </tr>
+    {% for request in requests %}
+    <tr>
+        <td>{{ request.property }}</td>
+        <td>{{ request.description }}</td>
+        <td>{{ request.urgency }}</td>
+        <td>{{ request.status }}</td>
+        {% if user.is_staff %}
+        <td>
+            <a href="{% url 'update_request_status' request.id 'In Progress' %}">Mark In Progress</a>
+            <a href="{% url 'update_request_status' request.id 'Resolved' %}">Mark Resolved</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

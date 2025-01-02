@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Tenant Dashboard</h1>
+  
   <h2>Your Leases</h2>
   <ul>
     {% for lease in leases %}
@@ -16,5 +17,15 @@
       <li>You have no active leases.</li>
     {% endfor %}
   </ul>
-  <!-- Add maintenance requests and communication features -->
+  
+  <h2>Maintenance Requests</h2>
+  <p>
+    <a href="{% url 'submit_request' %}" class="btn btn-primary">Submit Maintenance Request</a>
+    <a href="{% url 'my_requests' %}" class="btn btn-secondary">View My Requests</a>
+  </p>
+  
+  <!-- Placeholder for communication features -->
+  <h2>Messages</h2>
+  <p>Coming soon...</p>
+  
 {% endblock %}

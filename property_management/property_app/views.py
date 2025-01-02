@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .models import Property, Unit, Tenant, Lease, PropertyImage
+from .models import Property, Unit, Tenant, Lease, PropertyImage, MaintenanceRequest
 from .serializers import PropertySerializer, UnitSerializer, TenantSerializer, LeaseSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.forms import UserCreationForm
@@ -15,6 +15,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.db.models import Count, Avg, Sum
 from django.http import HttpResponseForbidden
+from .forms import MaintenanceRequestForm
+from django.http import HttpResponseRedirect
 
 class PropertyViewSet(viewsets.ModelViewSet):
     queryset = Property.objects.all()
@@ -122,6 +124,30 @@ class AdminDashboardView(TemplateView):
             return HttpResponseForbidden("You are not authorized to view this page.")
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Calculate metrics
+        total_properties = Property.objects.count()
+        total_units = Unit.objects.count()
+        total_tenants = Tenant.objects.count()
+        total_leases = Lease.objects.count()
+        occupancy_rate = (total_units and (total_leases / total_units) * 100) or 0
+        
+        # Sum up the rent amounts
+        total_revenue = Lease.objects.aggregate(Sum('rent_amount'))['rent_amount__sum'] or 0
+        
+        # Add metrics to context
+        context.update({
+            'total_properties': total_properties,
+            'total_units': total_units,
+            'total_tenants': total_tenants,
+            'total_leases': total_leases,
+            'occupancy_rate': round(occupancy_rate, 2),
+            'total_revenue': total_revenue,
+        })
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class LandlordDashboardView(TemplateView):
     template_name = 'property_app/landlord_dashboard.html'
@@ -131,6 +157,21 @@ class LandlordDashboardView(TemplateView):
             return HttpResponseForbidden("You are not authorized to view this page.")
         return super().dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Fetch the landlord's properties
+        landlord_properties = Property.objects.filter(owner=self.request.user)
+
+        # Fetch maintenance requests related to the landlord's properties
+        maintenance_requests = MaintenanceRequest.objects.filter(property__in=landlord_properties)
+
+        # Pass properties and maintenance requests to the template
+        context['properties'] = landlord_properties
+        context['maintenance_requests'] = maintenance_requests
+
+        return context
+
 @method_decorator(login_required, name='dispatch')
 class TenantDashboardView(TemplateView):
     template_name = 'property_app/tenant_dashboard.html'
@@ -139,3 +180,41 @@ class TenantDashboardView(TemplateView):
         if request.user.profile.role != 'tenant':
             return HttpResponseForbidden("You are not authorized to view this page.")
         return super().dispatch(request, *args, **kwargs)
+    
+@login_required
+def submit_request(request):
+    if request.method == 'POST':
+        form = MaintenanceRequestForm(request.POST)
+        if form.is_valid():
+            maintenance_request = form.save(commit=False)
+            maintenance_request.tenant = request.user
+            maintenance_request.save()
+            return redirect('request_list')
+    else:
+        form = MaintenanceRequestForm()
+
+    return render(request, 'maintenance/submit_request.html', {'form': form})
+
+@login_required
+def request_list(request):
+    if request.user.is_staff:  # Assuming staff users manage requests
+        requests = MaintenanceRequest.objects.all()
+    else:
+        requests = MaintenanceRequest.objects.filter(tenant=request.user)
+
+    return render(request, 'maintenance/request_list.html', {'requests': requests})
+
+@login_required
+def update_request_status(request, pk, status):
+    maintenance_request = get_object_or_404(MaintenanceRequest, pk=pk)
+    maintenance_request.status = status
+    maintenance_request.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+class MyRequestsView(ListView):
+    template_name = 'maintenance/my_requests.html'  # Create this template
+    context_object_name = 'requests'
+
+    def get_queryset(self):
+        # Filter requests for the logged-in tenant
+        return MaintenanceRequest.objects.filter(tenant=self.request.user)

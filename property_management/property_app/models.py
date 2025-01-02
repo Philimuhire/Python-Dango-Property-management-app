@@ -13,6 +13,7 @@ class Property(models.Model):
     property_type = models.CharField(max_length=50, choices=PROPERTY_TYPES)
     description = models.TextField()
     number_of_units = models.IntegerField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties', default=1)
 
     def __str__(self):
         return f'{self.name} ({self.property_type})'
@@ -65,4 +66,20 @@ class PropertyImage(models.Model):
 
     def __str__(self):
         return f'Image for {self.property.name}'
+    
+class MaintenanceRequest(models.Model):
+    tenant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="maintenance_requests")
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    description = models.TextField()
+    urgency = models.CharField(max_length=20, choices=[('Low', 'Low'), ('Medium', 'Medium'), ('High', 'High')])
+    status = models.CharField(
+        max_length=20,
+        choices=[('Pending', 'Pending'), ('In Progress', 'In Progress'), ('Resolved', 'Resolved')],
+        default='Pending'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request {self.id} - {self.property} ({self.status})"
+
 
